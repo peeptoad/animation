@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="2000" height="1000"></canvas>
+  <script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var rows = 2;
+    var cols = 2;
+    var intervalId;
+    var reversing = false;
+    var colors = ["red", "blue", "green"];
+
+    function drawBoxes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var boxWidth = canvas.width / cols;
+      var boxHeight = canvas.height / rows;
+      for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+          ctx.fillStyle = colors[(row + col) % 3];
+          ctx.fillRect(col * boxWidth, row * boxHeight, boxWidth, boxHeight);
+          ctx.strokeRect(col * boxWidth, row * boxHeight, boxWidth, boxHeight);
+        }
+      }
+      if (rows === 2 && cols === 2) {
+        reversing = false;
+      } else if (rows === 1000 && cols === 1000) {
+        reversing = true;
+      }
+      if (reversing) {
+        rows--;
+        cols--;
+      } else {
+        rows++;
+        cols++;
+      }
+    }
+
+    intervalId = setInterval(drawBoxes, 20);
+
+    setTimeout(function() {
+      clearInterval(intervalId);
+      reversing = true;
+      intervalId = setInterval(drawBoxes, 20);
+    }, 30000);
+
+    drawBoxes();
+  </script>
+</body>
+</html>
