@@ -26,7 +26,6 @@
         for (var col = 0; col < cols; col++) {
           ctx.fillStyle = colors[(row + col) % 3];
           ctx.fillRect(col * boxWidth, row * boxHeight, boxWidth, boxHeight);
-          ctx.strokeRect(col * boxWidth, row * boxHeight, boxWidth, boxHeight);
         }
       }
       if (rows === 2 && cols === 2) {
